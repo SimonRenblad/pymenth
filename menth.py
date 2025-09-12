@@ -1,20 +1,22 @@
 import random
 import time
 import argparse
+import math
 
 
 def get_parser():
     parser = argparse.ArgumentParser(description="practice math")
     parser.add_argument("--seed")
-    parser.add_argument("--length", type=int, default=None)
+    parser.add_argument("-l", "--length", type=int, default=None)
     parser.add_argument("pattern", type=str)
     parser.add_argument("-b", "--answer_base", type=int, default=10)
+    parser.add_argument("-t", "--tries", type=int, default=1)
     return parser
 
 
 BASE = {2: "b", 8: "o", 10: "d", 16: "x"}
 PREFIX = {2: "0b", 8: "0o", 10: "", 16: "0x"}
-OPERATORS = "+-*/"
+OPERATORS = "+-*/^|&%"
 
 
 class Test:
@@ -72,6 +74,14 @@ class Test:
                 elif opr == "/":
                     # we don't care about float div
                     answer //= val
+                elif opr == "^":
+                    answer = int(math.pow(answer, val))
+                elif opr == "%":
+                    answer %= val
+                elif opr == "&":
+                    answer &= val
+                elif opr == "|":
+                    answer |= val
         self.curr_answer = answer
         return question
 
@@ -91,18 +101,29 @@ def main():
         q = test.get_question()
         if q is None:
             return
-        print(q)
-        try:
-            usr_ans = input()
-        except KeyboardInterrupt:
-            return
-        try:
-            if test.check_answer(usr_ans):
-                print("correct")
-            else:
-                print("incorrect, answer was " + test.get_answer())
-        except:
-            print("incorrect, answer was " + test.get_answer())
+        tries = 0
+        correct = False
+        while tries < args.tries or args.tries == 0:
+            print(q)
+            try: 
+                usr_ans = input()
+            except KeyboardInterrupt:
+                return
+            try:
+                if test.check_answer(usr_ans):
+                    print("correct")
+                    correct = True
+                    break
+                else:
+                    print("incorrect")
+                    tries += 1
+                    continue
+            except:
+                print("incorrect")
+                tries += 1
+                continue
+        if not correct:
+            print("answer was " + test.get_answer())
 
 
 if __name__ == "__main__":
