@@ -35,7 +35,11 @@ class Test:
                 o = o[1:]
                 self.operators.append(opr)
             rnge = o.split(":")
-            bas = rnge[1].split("#")
+            if len(rnge) == 1:
+                remain = rnge[0]
+            else:
+                remain = rnge[1]
+            bas = remain.split("#")
             if len(bas) == 1:
                 base = 10
             else:
