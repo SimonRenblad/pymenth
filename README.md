@@ -45,3 +45,14 @@ Limit test length to 20
 5 + 2 - 0
 > 7
 ```
+
+Practice powers of two, with 3 tries per question
+```
+> menth -t 3 "2,^0:10"
+2 ^ 9
+> 256
+incorrect
+2 ^ 9
+> 512
+correct
+```
