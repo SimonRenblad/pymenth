@@ -2,6 +2,8 @@ import random
 import time
 import argparse
 import math
+from reportlab.pdfgen import canvas
+from reportlab import platypus
 
 
 def get_parser():
@@ -96,6 +98,20 @@ class Test:
     def get_answer(self):
         return (PREFIX[self.answer_base] + "{:" + BASE[self.answer_base] + "}").format(self.curr_answer)
 
+    # def generate_pdf(self):
+    #     story = []
+    #     doc = platypus.SimpleDocTemplate("hello.pdf")
+    #     table = platypus.Table([["hello"], ["how are you"])
+
+
+def generate_pdf():
+    story = []
+    doc = platypus.SimpleDocTemplate("hello.pdf")
+    data = 
+    table = platypus.Table(data, colWidths=)
+    story.append(table)
+    doc.build(story)
+
 
 def main():
     args = get_parser().parse_args()
@@ -131,4 +147,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    generate_pdf()
