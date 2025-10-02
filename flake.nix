@@ -14,6 +14,7 @@
       src = ./.;
       pyproject = true;
       build-system = [pkgs.python3Packages.setuptools];
+      propagatedBuildInputs = [pkgs.python3Packages.reportlab];
     };
   in {
     packages.x86_64-linux.default = menth;
